@@ -18,7 +18,7 @@ Follow these steps in sequence to set up your local development environment.
 ### 1. Clone the Repository
 Open your terminal and run:
 ```bash
-git clone [https://github.com/](https://github.com/)[YOUR-USERNAME]/talesoftime.git
+git clone https://github.com/[YOUR-USERNAME]/talesoftime.git
 cd talesoftime
 ```
 
