@@ -102,3 +102,4 @@ quest_rows = [
         "DifficultyID": difficulties["Journeyman"].DifficultyID,
     },
 ]
+
