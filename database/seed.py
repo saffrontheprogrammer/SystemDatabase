@@ -96,4 +96,9 @@ print("  ✓ Seeded Item")
 item_map = {i.ItemName: i for i in Item.query.all()}
 
 quest_rows = [
-    {}
+    {
+        "QuestName": "Defend the Vale",
+        "RegionID": region["The Verdant Vale"] #Key value pairs
+        "DifficultyID": difficulties["Journeyman"].DifficultyID,
+    },
+]
