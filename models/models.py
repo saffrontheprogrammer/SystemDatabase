@@ -13,13 +13,14 @@ import os
 # Connection
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.normapath(os.environ.get("DATABASE_PATH", os.path.join(_HERE, "..", "instance", "tales_of_time.db")))
+DB_PATH = os.path.normpath(os.environ.get("DATABASE_PATH", os.path.join(_HERE, "..", "instance", "tales_of_time.db")))
 
 def get_db() -> sqlite3.Connection:
     conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite.Row
+    conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
     return conn
+
 
 # Schema
 
@@ -61,7 +62,7 @@ CREATE TABLE IF NOT EXISTS Region (
            DifficultyName VARCHAR(50) NOT NULL UNIQUE
 );
 
-# Core entities
+-- Core entities
 
 CREATE TABLE IF NOT EXISTS Character (
             CharacterID        INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -113,3 +114,8 @@ CREATE TABLE IF NOT EXISTS CharacterQuest (
     FOREIGN KEY (QuestID)      REFERENCES Quest(QuestID)
 );
 """
+
+def init_db() -> None:
+    with get_db() as conn:
+        conn.executescript(_SCHEMA)
+        conn.commit()

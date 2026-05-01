@@ -256,7 +256,7 @@ class InventoryRepository:
         with get_db() as conn:
             return _fetchone_or_404(
                 conn,
-                SELECT * FROM Inventory WHERE InventoryID = ?",
+                "SELECT * FROM Inventory WHERE InventoryID = ?",
                 (inventory_id,)
             )
 
@@ -318,7 +318,7 @@ class CharacterQuestRepository:
         with get_db() as conn:
             return _fetchone_or_404(
                 conn,
-                "SELECT * FROM CharacterQuest WHERE CharacterQuestID = ?"
+                "SELECT * FROM CharacterQuest WHERE CharacterQuestID = ?",
                 (cq_id,)
                 )
 
