@@ -12,7 +12,7 @@ import os
 
 # Connection
 
-_HERE = os.path.dirname(os.path.abspath(_file_))
+_HERE = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.normapath(os.environ.get("DATABASE_PATH", os.path.join(_HERE, "..", "instance", "tales_of_time.db")))
 
 def get_db() -> sqlite3.Connection:
