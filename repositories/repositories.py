@@ -23,7 +23,7 @@ def _fetchone_or_404(conn, sql: str, params: tuple = ()):
     return row
 
 
-# --- Character ---------------------------------------------------------------
+# Character
 
 class CharacterRepository:
 
@@ -71,7 +71,7 @@ class CharacterRepository:
         """Insert a new character and return the new CharacterID."""
         with get_db() as conn:
             cursor = conn.execute("""
-                INSERT INTO Character
+                INSERT INTO Character (CharacterName, ClassID, SpeciesID, AlignmentID, Level)
                 VALUES (?, ?, ?, ?, ?)
             """, (
                 data["CharacterName"],
@@ -118,7 +118,7 @@ class CharacterRepository:
             ).fetchone()[0]
 
 
-# --- Item --------------------------------------------------------------------
+# Item
 
 class ItemRepository:
 
@@ -134,7 +134,7 @@ class ItemRepository:
                     r.RarityName
                 FROM Item i
                 JOIN ItemType it ON i.ItemTypeID = it.ItemTypeID
-                JOIN Rarity   r  ON i.RarityID = r.RarityID
+                JOIN Rarity   r  ON i.RarityID      = r.RarityID
                 ORDER BY i.ItemName
             """).fetchall()
 
@@ -150,7 +150,7 @@ class ItemRepository:
                     r.RarityName
                 FROM Item i
                 JOIN ItemType it ON i.ItemTypeID = it.ItemTypeID
-                JOIN Rarity   r  ON i.RarityID = r.RarityID
+                JOIN Rarity   r  ON i.RarityID      = r.RarityID
                 WHERE i.ItemID = ?
             """, (item_id,))
 
@@ -160,29 +160,21 @@ class ItemRepository:
                 INSERT INTO Item (ItemName, ItemTypeID, RarityID)
                 VALUES (?, ?, ?)
             """, (
-                data["ItemName"],
-                data["ItemTypeID"],
-                data["RarityID"],
-            ))
+                data["ItemName"], data["ItemTypeID"] ,data["RarityID"]))
             conn.commit()
             return cursor.lastrowid
 
     def delete(self, item_id: int) -> None:
         with get_db() as conn:
-            conn.execute(
-                "DELETE FROM Item WHERE ItemID = ?",
-                (item_id,)
-            )
+            conn.execute("DELETE FROM Item WHERE ItemID = ?", (item_id,))
             conn.commit()
 
     def count(self) -> int:
         with get_db() as conn:
-            return conn.execute(
-                "SELECT COUNT(*) FROM Item"
-            ).fetchone()[0]
+            return conn.execute("SELECT COUNT(*) FROM Item").fetchone()[0]
 
 
-# --- Quest -------------------------------------------------------------------
+# Quest 
 
 class QuestRepository:
 
@@ -197,7 +189,7 @@ class QuestRepository:
                     d.DifficultyID,
                     d.DifficultyName
                 FROM Quest q
-                JOIN Region     r ON q.RegionID = r.RegionID
+                JOIN Region     r ON q.RegionID         = r.RegionID
                 JOIN Difficulty d ON q.DifficultyID = d.DifficultyID
                 ORDER BY q.QuestName
             """).fetchall()
@@ -213,7 +205,7 @@ class QuestRepository:
                     d.DifficultyID,
                     d.DifficultyName
                 FROM Quest q
-                JOIN Region     r ON q.RegionID = r.RegionID
+                JOIN Region     r ON q.RegionID =           r.RegionID
                 JOIN Difficulty d ON q.DifficultyID = d.DifficultyID
                 WHERE q.QuestID = ?
             """, (quest_id,))
@@ -223,30 +215,22 @@ class QuestRepository:
             cursor = conn.execute("""
                 INSERT INTO Quest (QuestName, RegionID, DifficultyID)
                 VALUES (?, ?, ?)
-            """, (
-                data["QuestName"],
-                data["RegionID"],
-                data["DifficultyID"],
-            ))
+            """, (data["QuestName"], data["RegionID"], data["DifficultyID"]))
             conn.commit()
             return cursor.lastrowid
 
     def delete(self, quest_id: int) -> None:
         with get_db() as conn:
             conn.execute(
-                "DELETE FROM Quest WHERE QuestID = ?",
-                (quest_id,)
-            )
+                "DELETE FROM Quest WHERE QuestID = ?", (quest_id,))
             conn.commit()
 
     def count(self) -> int:
         with get_db() as conn:
-            return conn.execute(
-                "SELECT COUNT(*) FROM Quest"
-            ).fetchone()[0]
+            return conn.execute( "SELECT COUNT(*) FROM Quest").fetchone()[0]
 
 
-# --- Inventory ---------------------------------------------------------------
+# Inventory 
 
 class InventoryRepository:
 
@@ -261,18 +245,20 @@ class InventoryRepository:
                     it.TypeName,
                     r.RarityName
                 FROM Inventory inv
-                JOIN Item     i  ON inv.ItemID = i.ItemID
-                JOIN ItemType it ON i.ItemTypeID = it.ItemTypeID
-                JOIN Rarity   r  ON i.RarityID = r.RarityID
+                JOIN Item     i  ON inv.ItemID             = i.ItemID
+                JOIN ItemType it ON i.ItemTypeID    = it.ItemTypeID
+                JOIN Rarity   r  ON i.RarityID              = r.RarityID
                 WHERE inv.CharacterID = ?
                 ORDER BY i.ItemName
             """, (character_id,)).fetchall()
 
     def get_by_id(self, inventory_id: int):
         with get_db() as conn:
-            return _fetchone_or_404(conn, """
-                SELECT * FROM Inventory WHERE InventoryID = ?
-            """, (inventory_id,))
+            return _fetchone_or_404(
+                conn,
+                SELECT * FROM Inventory WHERE InventoryID = ?",
+                (inventory_id,)
+            )
 
     def add_item(self, character_id: int, item_id: int, quantity: int = 1):
         """Stack quantity if the item already exists, otherwise insert."""
@@ -306,7 +292,7 @@ class InventoryRepository:
             conn.commit()
 
 
-# --- CharacterQuest ----------------------------------------------------------
+# CharacterQuest 
 
 class CharacterQuestRepository:
 
@@ -321,18 +307,20 @@ class CharacterQuestRepository:
                     r.RegionName,
                     d.DifficultyName
                 FROM CharacterQuest cq
-                JOIN Quest      q ON cq.QuestID = q.QuestID
-                JOIN Region     r ON q.RegionID = r.RegionID
-                JOIN Difficulty d ON q.DifficultyID = d.DifficultyID
+                JOIN Quest      q ON cq.QuestID         = q.QuestID
+                JOIN Region     r ON q.RegionID         = r.RegionID
+                JOIN Difficulty d ON q.DifficultyID     = d.DifficultyID
                 WHERE cq.CharacterID = ?
                 ORDER BY cq.CompletionDate DESC, q.QuestName
             """, (character_id,)).fetchall()
 
     def get_by_id(self, cq_id: int):
         with get_db() as conn:
-            return _fetchone_or_404(conn, """
-                SELECT * FROM CharacterQuest WHERE CharacterQuestID = ?
-            """, (cq_id,))
+            return _fetchone_or_404(
+                conn,
+                "SELECT * FROM CharacterQuest WHERE CharacterQuestID = ?"
+                (cq_id,)
+                )
 
     def assign(self, character_id: int, quest_id: int) -> int:
         with get_db() as conn:
@@ -353,7 +341,7 @@ class CharacterQuestRepository:
             conn.commit()
 
 
-# --- Lookup / Reference Tables -----------------------------------------------
+# Lookup / Reference Tables
 
 class LookupRepository:
     """Provides read-only access to all raw reference / lookup tables."""
