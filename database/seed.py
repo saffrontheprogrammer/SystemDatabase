@@ -14,25 +14,54 @@ from models.models import get_db, init_db
 LOOKUP_SEED_DATA = {
     "CharacterClass": [
         {"ClassName": "Warrior",  "Description": "A powerful melee fighter."},
+        {"ClassName": "Barbarian",  "Description": "A lawless warrior with no limits."},
+        {"ClassName": "Sorcerer",  "Description": "A spell casting powerhouse."},
+        {"ClassName": "Mage",  "Description": "A master of magic who casts powerful spells."},
+        {"ClassName": "Rogue",  "Description": "A stealthy fighter who relies on speed and trickery"},
+
     ],
     "Species": [
         {"SpeciesName": "Human"},
+        {"SpeciesName": "Fairy"},
+        {"SpeciesName": "Dwarf"},
+        {"SpeciesName": "Hybrid"},
+        {"SpeciesName": "Zombie"},
+
     ],
     "Alignment": [
         {"AlignmentName": "Lawful Good"},
+        {"AlignmentName": "Moderately Unfair"},
+        {"AlignmentName": "Destructively Evil"},
     ],
     "ItemType": [
         {"TypeName": "Weapon"},
+        {"TypeName": "Food"},
+        {"TypeName": "Armour"},
+        {"TypeName": "Collectables"},
+
+
     ],
     "Rarity": [
         {"RarityName": "Common"},
+        {"RarityName": "Harder to find"},
+        {"RarityName": "Rare"},
     ],
     "Region": [
         {"RegionName": "The Verdant Vale"},
+        {"RegionName": "The Atrophic Alps"},
+        {"RegionName": "The Sunny Sands"},
+        {"RegionName": "The Eldergrove Forest"},
+        {"RegionName": "The Ashen Badlands"},
+        {"RegionName": "The Moonlight Isles"},
     ],
     "Difficulty": [
         {"DifficultyName": "Novice"},
-    ],
+        {"DifficultyName": "Apprentice"},
+        {"DifficultyName": "Lengendary"},
+        {"DifficultyName": "Journeyman"},
+        {"DifficultyName": "Master"},
+        {"DifficultyName": "Expert"},
+    ]
 }
 
 
@@ -75,9 +104,14 @@ def seed_core_data(cursor):
     difficulties = fetch_lookup_map(cursor, "Difficulty",   "DifficultyName")
 
     # ── Characters ────────────────────────────────────────────────────────────
-    character_rows = [
+    character_rows = [ 
         {"CharacterName": "Thorin Ironblade",    "ClassID": classes["Warrior"]["ClassID"],  "SpeciesID": species["Dwarf"]["SpeciesID"],  "AlignmentID": alignments["Lawful Good"]["AlignmentID"],     "Level": 12},
-    ]
+        {"CharacterName": "Loretta Fusion",    "ClassID": classes["Sorcerer"]["ClassID"],  "SpeciesID": species["Human"]["SpeciesID"],  "AlignmentID": alignments["Destructively Evil"]["AlignmentID"],     "Level": 1},
+        {"CharacterName": "Kaelen Stormhart",    "ClassID": classes["Barbarian"]["ClassID"],  "SpeciesID": species["Hybrid"]["SpeciesID"],  "AlignmentID": alignments["Lawful Good"]["AlignmentID"],     "Level": 7},
+        {"CharacterName": "Mira Ashvale",    "ClassID": classes["Rogue"]["ClassID"],  "SpeciesID": species["Fairy"]["SpeciesID"],  "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"],     "Level": 4},
+        {"CharacterName": "Garrick Stonefist",    "ClassID": classes["Mage"]["ClassID"],  "SpeciesID": species["Zombie"]["SpeciesID"],  "AlignmentID": alignments["Destructively Evil"]["AlignmentID"],     "Level": 5},
+        {"CharacterName": "Dorian Blackthorn",    "ClassID": classes["Warrior"]["ClassID"],  "SpeciesID": species["Human"]["SpeciesID"],  "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"],     "Level": 20},
+       ]
 
     for row in character_rows:
         cursor.execute("""
@@ -91,7 +125,7 @@ def seed_core_data(cursor):
     # ── Items ─────────────────────────────────────────────────────────────────
     item_rows = [
         {"ItemName": "Iron Sword",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
-
+        ]
     for row in item_rows:
         cursor.execute("""
             INSERT INTO Item (ItemName, ItemTypeID, RarityID)

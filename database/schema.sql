@@ -36,8 +36,8 @@ CREATE TABLE IF NOT EXISTS Region (
 );
 
 CREATE TABLE IF NOT EXISTS Difficulty (
-    DifficultyID INTEGER PRIMARY key AUTOINCREMENT,
-    
+    DifficultyID     INTEGER PRIMARY KEY AUTOINCREMENT,
+    DifficultyName   VARCHAR(50) NOT NULL UNIQUE,
 )
 
 -- ── Core entities ─────────────────────────────────────────────────────────────
@@ -80,4 +80,4 @@ CREATE TABLE IF NOT EXISTS CharacterQuest (
     CharacterID      INTEGER NOT NULL REFERENCES Character(CharacterID) ON DELETE CASCADE,
     QuestID          INTEGER NOT NULL REFERENCES Quest(QuestID),
     CompletionDate   DATETIME NULL
-);
+)
