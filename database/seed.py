@@ -91,6 +91,7 @@ def seed_core_data(cursor):
     # ── Items ─────────────────────────────────────────────────────────────────
     item_rows = [
         {"ItemName": "Iron Sword",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
+    ]
 
     for row in item_rows:
         cursor.execute("""
