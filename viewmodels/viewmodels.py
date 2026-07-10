@@ -16,6 +16,9 @@ from typing import List, Optional
 class CharacterViewModel:
     character_id:    int
     name:            str
+    player_name:     str
+    player_email:    str
+    character_type:  str
     level:           int
     character_class: str
     species:         str
@@ -26,6 +29,9 @@ class CharacterViewModel:
         return cls(
             character_id    = row["CharacterID"],
             name            = row["CharacterName"],
+            player_name     = row["PlayerName"],
+            player_email    = row["PlayerEmail"],
+            character_type  = row["CharacterType"],
             level           = row["Level"],
             character_class = row["ClassName"],
             species         = row["SpeciesName"],
@@ -47,11 +53,11 @@ class CharacterListViewModel:
 @dataclass
 class CharacterFormViewModel:
     """Carries dropdown options for the create / edit form."""
+    players:    list = field(default_factory=list)
     classes:    list = field(default_factory=list)
     species:    list = field(default_factory=list)
     alignments: list = field(default_factory=list)
-    character:  Optional[object] = None   # None = create mode, Row = edit mode
-
+    character:  Optional[object] = None
 
 # ── Item ───────────────────────────────────────────────────────────────────────
 

@@ -362,6 +362,12 @@ class CharacterQuestRepository:
 class LookupRepository:
     """Provides read-only access to all raw reference / lookup tables."""
 
+    def get_players(self) -> list:
+        with get_db() as conn:
+            return conn.execute(
+                "SELECT PlayerID, DisplayName, Email FROM Player ORDER BY DisplayName"
+            ).fetchall()
+
     def get_classes(self) -> list:
         with get_db() as conn:
             return conn.execute(
@@ -404,8 +410,4 @@ class LookupRepository:
                 "SELECT DifficultyID, DifficultyName FROM Difficulty ORDER BY DifficultyID"
             ).fetchall()
         
-    def get_players(self) -> list:
-    with get_db() as conn:
-        return conn.execute(
-            "SELECT PlayerID, DisplayName, Email FROM Player ORDER BY DisplayName"
-        ).fetchall()
+    
