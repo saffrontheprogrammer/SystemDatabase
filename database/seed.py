@@ -148,7 +148,16 @@ def seed_core_data(cursor):
         {"ItemName": "Leggings",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Harder-to-find"]["RarityID"]},
         {"ItemName": "Boots",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Rare"]["RarityID"]},
         {"ItemName": "Shield",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
+
+        item_rows = [
+        {"ItemName": "Ancient Coin", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Common"]["RarityID"]},
+        {"ItemName": "Crystal Feather", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Rare"]["RarityID"]},
+        {"ItemName": "Dragon Scale", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Harder-to-find"]["RarityID"]},
+        {"ItemName": "Moonlit Gem", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Rare"]["RarityID"]},
+        {"ItemName": "Forgotten Rune", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Harder-to-find"]["RarityID"]},
+        {"ItemName": "Cursed Key", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Common"]["RarityID"]},
         ]
+
     for row in item_rows:
         cursor.execute("""
             INSERT INTO Item (ItemName, ItemTypeID, RarityID)
