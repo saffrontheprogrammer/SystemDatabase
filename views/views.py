@@ -43,7 +43,9 @@ def character_create():
     svc = _char_svc()
     if request.method == "POST":
         data = {
+            "PlayerID":      int(request.form["PlayerID"]),
             "CharacterName": request.form["CharacterName"],
+            "CharacterType": request.form["CharacterType"],
             "ClassID":       int(request.form["ClassID"]),
             "SpeciesID":     int(request.form["SpeciesID"]),
             "AlignmentID":   int(request.form["AlignmentID"]),
