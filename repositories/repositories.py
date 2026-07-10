@@ -28,8 +28,8 @@ def _fetchone_or_404(conn, sql: str, params: tuple = ()):
 class CharacterRepository:
 
     def get_all(self) -> list:
-    with get_db() as conn:
-        return conn.execute("""
+        with get_db() as conn:
+         return conn.execute("""
             SELECT
                 c.CharacterID,
                 c.PlayerID,
