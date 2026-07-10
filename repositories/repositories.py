@@ -28,80 +28,96 @@ def _fetchone_or_404(conn, sql: str, params: tuple = ()):
 class CharacterRepository:
 
     def get_all(self) -> list:
-        with get_db() as conn:
-            return conn.execute("""
-                SELECT
-                    c.CharacterID,
-                    c.CharacterName,
-                    c.Level,
-                    cc.ClassID,
-                    cc.ClassName,
-                    s.SpeciesID,
-                    s.SpeciesName,
-                    a.AlignmentID,
-                    a.AlignmentName
-                FROM Character c
-                JOIN CharacterClass cc ON c.ClassID = cc.ClassID
-                JOIN Species        s  ON c.SpeciesID = s.SpeciesID
-                JOIN Alignment      a  ON c.AlignmentID = a.AlignmentID
-                ORDER BY c.CharacterName
-            """).fetchall()
+    with get_db() as conn:
+        return conn.execute("""
+            SELECT
+                c.CharacterID,
+                c.PlayerID,
+                p.DisplayName AS PlayerName,
+                p.Email AS PlayerEmail,
+                c.CharacterName,
+                c.CharacterType,
+                c.Level,
+                cc.ClassID,
+                cc.ClassName,
+                s.SpeciesID,
+                s.SpeciesName,
+                a.AlignmentID,
+                a.AlignmentName
+            FROM Character c
+            JOIN Player p ON c.PlayerID = p.PlayerID
+            JOIN CharacterClass cc ON c.ClassID = cc.ClassID
+            JOIN Species s ON c.SpeciesID = s.SpeciesID
+            JOIN Alignment a ON c.AlignmentID = a.AlignmentID
+            ORDER BY c.CharacterName
+        """).fetchall()
 
     def get_by_id(self, character_id: int):
-        with get_db() as conn:
-            return _fetchone_or_404(conn, """
-                SELECT
-                    c.CharacterID,
-                    c.CharacterName,
-                    c.Level,
-                    cc.ClassID,
-                    cc.ClassName,
-                    s.SpeciesID,
-                    s.SpeciesName,
-                    a.AlignmentID,
-                    a.AlignmentName
-                FROM Character c
-                JOIN CharacterClass cc ON c.ClassID = cc.ClassID
-                JOIN Species        s  ON c.SpeciesID = s.SpeciesID
-                JOIN Alignment      a  ON c.AlignmentID = a.AlignmentID
-                WHERE c.CharacterID = ?
-            """, (character_id,))
+    with get_db() as conn:
+        return _fetchone_or_404(conn, """
+            SELECT
+                c.CharacterID,
+                c.PlayerID,
+                p.DisplayName AS PlayerName,
+                p.Email AS PlayerEmail,
+                c.CharacterName,
+                c.CharacterType,
+                c.Level,
+                cc.ClassID,
+                cc.ClassName,
+                s.SpeciesID,
+                s.SpeciesName,
+                a.AlignmentID,
+                a.AlignmentName
+            FROM Character c
+            JOIN Player p ON c.PlayerID = p.PlayerID
+            JOIN CharacterClass cc ON c.ClassID = cc.ClassID
+            JOIN Species s ON c.SpeciesID = s.SpeciesID
+            JOIN Alignment a ON c.AlignmentID = a.AlignmentID
+            WHERE c.CharacterID = ?
+        """, (character_id,))
 
     def create(self, data: dict) -> int:
-        """Insert a new character and return the new CharacterID."""
-        with get_db() as conn:
-            cursor = conn.execute("""
-                INSERT INTO Character (CharacterName, ClassID, SpeciesID, AlignmentID, Level)
-                VALUES (?, ?, ?, ?, ?)
-            """, (
-                data["CharacterName"],
-                data["ClassID"],
-                data["SpeciesID"],
-                data["AlignmentID"],
-                data["Level"],
-            ))
-            conn.commit()
-            return cursor.lastrowid
-
+    with get_db() as conn:
+        cursor = conn.execute("""
+            INSERT INTO Character 
+            (PlayerID, CharacterName, CharacterType, ClassID, SpeciesID, AlignmentID, Level)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (
+            data["PlayerID"],
+            data["CharacterName"],
+            data["CharacterType"],
+            data["ClassID"],
+            data["SpeciesID"],
+            data["AlignmentID"],
+            data["Level"],
+        ))
+        conn.commit()
+        return cursor.lastrowid
+    
     def update(self, character_id: int, data: dict) -> None:
-        with get_db() as conn:
-            conn.execute("""
-                UPDATE Character
-                SET CharacterName = ?,
-                    ClassID       = ?,
-                    SpeciesID     = ?,
-                    AlignmentID   = ?,
-                    Level         = ?
-                WHERE CharacterID = ?
-            """, (
-                data["CharacterName"],
-                data["ClassID"],
-                data["SpeciesID"],
-                data["AlignmentID"],
-                data["Level"],
-                character_id,
-            ))
-            conn.commit()
+    with get_db() as conn:
+        conn.execute("""
+            UPDATE Character
+            SET PlayerID      = ?,
+                CharacterName = ?,
+                CharacterType = ?,
+                ClassID       = ?,
+                SpeciesID     = ?,
+                AlignmentID   = ?,
+                Level         = ?
+            WHERE CharacterID = ?
+        """, (
+            data["PlayerID"],
+            data["CharacterName"],
+            data["CharacterType"],
+            data["ClassID"],
+            data["SpeciesID"],
+            data["AlignmentID"],
+            data["Level"],
+            character_id,
+        ))
+        conn.commit()
 
     def delete(self, character_id: int) -> None:
         with get_db() as conn:
@@ -387,3 +403,9 @@ class LookupRepository:
             return conn.execute(
                 "SELECT DifficultyID, DifficultyName FROM Difficulty ORDER BY DifficultyID"
             ).fetchall()
+        
+    def get_players(self) -> list:
+    with get_db() as conn:
+        return conn.execute(
+            "SELECT PlayerID, DisplayName, Email FROM Player ORDER BY DisplayName"
+        ).fetchall()
