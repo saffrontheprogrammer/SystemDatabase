@@ -16,6 +16,8 @@
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Player</th>
+                <th>Type</th>
                 <th>Class</th>
                 <th>Species</th>
                 <th>Alignment</th>
@@ -27,6 +29,8 @@
             {% for c in vm.characters %}
             <tr>
                 <td><strong>{{ c.name }}</strong></td>
+                <td>{{ c.player_name }}</td>
+                <td><span class="badge badge-class">{{ c.character_type }}</span></td>
                 <td><span class="badge badge-class">{{ c.character_class }}</span></td>
                 <td>{{ c.species }}</td>
                 <td><span class="badge badge-alignment">{{ c.alignment }}</span></td>
