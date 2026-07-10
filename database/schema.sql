@@ -70,20 +70,18 @@ CREATE TABLE IF NOT EXISTS Character (
 CREATE TABLE IF NOT EXISTS Item (
     ItemID     INTEGER PRIMARY KEY AUTOINCREMENT,
     ItemName   VARCHAR(100) NOT NULL,
-    ItemTypeID INTEGER NOT NULL REFERENCES ItemType(ItemTypeID),
-    RarityID   INTEGER NOT NULL REFERENCES Rarity(RarityID)
+    ItemTypeID INTEGER NOT NULL,
+    RarityID   INTEGER NOT NULL,
 
     FOREIGN KEY (ItemTypeID) REFERENCES ItemType(ItemTypeID),
     FOREIGN KEY (RarityID) REFERENCES Rarity(RarityID)
-
-
 );
 
 CREATE TABLE IF NOT EXISTS Quest (
     QuestID      INTEGER PRIMARY KEY AUTOINCREMENT,
     QuestName    VARCHAR(100) NOT NULL,
-    RegionID     INTEGER NOT NULL REFERENCES Region(RegionID),
-    DifficultyID INTEGER NOT NULL REFERENCES Difficulty(DifficultyID)
+    RegionID     INTEGER NOT NULL,
+    DifficultyID INTEGER NOT NULL,
 
     FOREIGN KEY (RegionID) REFERENCES Region(RegionID),
     FOREIGN KEY (DifficultyID) REFERENCES Difficulty(DifficultyID)
@@ -94,9 +92,9 @@ CREATE TABLE IF NOT EXISTS Quest (
 
 CREATE TABLE IF NOT EXISTS Inventory (
     InventoryID INTEGER PRIMARY KEY AUTOINCREMENT,
-    CharacterID INTEGER NOT NULL REFERENCES Character(CharacterID) ON DELETE CASCADE,
-    ItemID      INTEGER NOT NULL REFERENCES Item(ItemID),
-    Quantity    INTEGER NOT NULL DEFAULT 1
+    CharacterID INTEGER NOT NULL,
+    ItemID      INTEGER NOT NULL,
+    Quantity    INTEGER NOT NULL DEFAULT 1,
 
     FOREIGN KEY (CharacterID) REFERENCES Character(CharacterID),
     FOREIGN KEY (ItemID) REFERENCES Item(ItemID)
@@ -104,9 +102,9 @@ CREATE TABLE IF NOT EXISTS Inventory (
 
 CREATE TABLE IF NOT EXISTS CharacterQuest (
     CharacterQuestID INTEGER PRIMARY KEY AUTOINCREMENT,
-    CharacterID      INTEGER NOT NULL REFERENCES Character(CharacterID) ON DELETE CASCADE,
-    QuestID          INTEGER NOT NULL REFERENCES Quest(QuestID),
-    CompletionDate   DATETIME NULL
+    CharacterID      INTEGER NOT NULL,
+    QuestID          INTEGER NOT NULL,
+    CompletionDate   DATETIME,
 
     FOREIGN KEY (CharacterID) REFERENCES Character(CharacterID),
     FOREIGN KEY (QuestID) REFERENCES Quest(QuestID)
