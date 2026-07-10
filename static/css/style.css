@@ -227,6 +227,7 @@ body {
 .rarity-rare      { background: rgba(100,160,255,0.2); color: #7ab4ff; }
 .rarity-epic      { background: rgba(180,100,255,0.2); color: #c07aff; }
 .rarity-legendary { background: rgba(245,166,35,0.2);  color: var(--warning); }
+.rarity-harder-to-find {background: rgba(255, 255, 255, 0.12); color: #f0f0f0; }
 
 .level-badge {
     display: inline-block;

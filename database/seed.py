@@ -111,6 +111,10 @@ def seed_core_data(cursor):
         {"CharacterName": "Mira Ashvale",    "ClassID": classes["Rogue"]["ClassID"],  "SpeciesID": species["Fairy"]["SpeciesID"],  "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"],     "Level": 4},
         {"CharacterName": "Garrick Stonefist",    "ClassID": classes["Mage"]["ClassID"],  "SpeciesID": species["Zombie"]["SpeciesID"],  "AlignmentID": alignments["Destructively Evil"]["AlignmentID"],     "Level": 5},
         {"CharacterName": "Dorian Blackthorn",    "ClassID": classes["Warrior"]["ClassID"],  "SpeciesID": species["Human"]["SpeciesID"],  "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"],     "Level": 20},
+        {"CharacterName": "Elara Moonwhisper",    "ClassID": classes["Sorcerer"]["ClassID"],  "SpeciesID": species["Fairy"]["SpeciesID"],  "AlignmentID": alignments["Lawful Good"]["AlignmentID"],     "Level": 9},
+        {"CharacterName": "Brakka Doomfang",    "ClassID": classes["Barbarian"]["ClassID"],  "SpeciesID": species["Zombie"]["SpeciesID"],  "AlignmentID": alignments["Destructively Evil"]["AlignmentID"],     "Level": 14},
+        {"CharacterName": "Finn Quickstep",    "ClassID": classes["Rogue"]["ClassID"],  "SpeciesID": species["Hybrid"]["SpeciesID"],  "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"],     "Level": 6},
+        {"CharacterName": "Cedric Oakshield",    "ClassID": classes["Mage"]["ClassID"],  "SpeciesID": species["Dwarf"]["SpeciesID"],  "AlignmentID": alignments["Lawful Good"]["AlignmentID"],     "Level": 11},
        ]
 
     for row in character_rows:
