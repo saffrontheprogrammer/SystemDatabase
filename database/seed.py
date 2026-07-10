@@ -129,23 +129,23 @@ def seed_core_data(cursor):
     # ── Items ─────────────────────────────────────────────────────────────────
     item_rows = [
         {"ItemName": "Iron Sword",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
-        {"ItemName": "Iron Sword",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
-        {"ItemName": "Iron Sword",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
-        {"ItemName": "Iron Sword",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
-        {"ItemName": "Iron Sword",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
-        {"ItemName": "Iron Sword",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
+        {"ItemName": "Axe",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
+        {"ItemName": "Warhammer",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Harder-to-find"]["RarityID"]},
+        {"ItemName": "Gun",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Rare"]["RarityID"]},
+        {"ItemName": "Nunchucks",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Harder-to-find"]["RarityID"]},
+        {"ItemName": "Water Gun",          "ItemTypeID": item_types["Weapon"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
 
         {"ItemName": "Bread",          "ItemTypeID": item_types["Food"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
         {"ItemName": "Beans",          "ItemTypeID": item_types["Food"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
-        {"ItemName": "Beef",          "ItemTypeID": item_types["Food"]["ItemTypeID"],  "RarityID": rarities["Harder to find"]["RarityID"]},
-        {"ItemName": "Chicken",          "ItemTypeID": item_types["Food"]["ItemTypeID"],  "RarityID": rarities["Harder to find"]["RarityID"]},
+        {"ItemName": "Beef",          "ItemTypeID": item_types["Food"]["ItemTypeID"],  "RarityID": rarities["Harder-to-find"]["RarityID"]},
+        {"ItemName": "Chicken",          "ItemTypeID": item_types["Food"]["ItemTypeID"],  "RarityID": rarities["Harder-to-find"]["RarityID"]},
         {"ItemName": "Rice",          "ItemTypeID": item_types["Food"]["ItemTypeID"],  "RarityID": rarities["Rare"]["RarityID"]},
         {"ItemName": "Carrot",          "ItemTypeID": item_types["Food"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
 
         {"ItemName": "Helmet",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
         {"ItemName": "Chestplate",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
-        {"ItemName": "Gauntlets",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Harder to find"]["RarityID"]},
-        {"ItemName": "Leggings",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Harder to find"]["RarityID"]},
+        {"ItemName": "Gauntlets",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Harder-to-find"]["RarityID"]},
+        {"ItemName": "Leggings",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Harder-to-find"]["RarityID"]},
         {"ItemName": "Boots",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Rare"]["RarityID"]},
         {"ItemName": "Shield",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
         ]
