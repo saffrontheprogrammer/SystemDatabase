@@ -58,7 +58,7 @@ LOOKUP_SEED_DATA = {
     "Difficulty": [
         {"DifficultyName": "Novice"},
         {"DifficultyName": "Apprentice"},
-        {"DifficultyName": "Lengendary"},
+        {"DifficultyName": "Legendary"},
         {"DifficultyName": "Journeyman"},
         {"DifficultyName": "Master"},
         {"DifficultyName": "Expert"},
@@ -178,7 +178,16 @@ def seed_core_data(cursor):
 
     # ── Quests ────────────────────────────────────────────────────────────────
     quest_rows = [
-        {"QuestName": "Defend the Vale",       "RegionID": regions["The Verdant Vale"]["RegionID"],        "DifficultyID": difficulties["Journeyman"]["DifficultyID"]},
+        {"QuestName": "Defend the Vale", "RegionID": regions["The Verdant Vale"]["RegionID"], "DifficultyID": difficulties["Journeyman"]["DifficultyID"]},
+        {"QuestName": "Gather Vale Herbs", "RegionID": regions["The Verdant Vale"]["RegionID"], "DifficultyID": difficulties["Novice"]["DifficultyID"]},
+        {"QuestName": "Find the Lost Sand Compass", "RegionID": regions["The Sunny Sands"]["RegionID"], "DifficultyID": difficulties["Novice"]["DifficultyID"]},
+        {"QuestName": "Clear the Eldergrove Path", "RegionID": regions["The Eldergrove Forest"]["RegionID"], "DifficultyID": difficulties["Apprentice"]["DifficultyID"]},
+        {"QuestName": "Escort the Desert Caravan", "RegionID": regions["The Sunny Sands"]["RegionID"], "DifficultyID": difficulties["Apprentice"]["DifficultyID"]},
+        {"QuestName": "Climb the Frozen Watchtower", "RegionID": regions["The Atrophic Alps"]["RegionID"], "DifficultyID": difficulties["Journeyman"]["DifficultyID"]},
+        {"QuestName": "Hunt the Ashen Wyrm", "RegionID": regions["The Ashen Badlands"]["RegionID"], "DifficultyID": difficulties["Expert"]["DifficultyID"]},
+        {"QuestName": "Seal the Eldergrove Root Rift", "RegionID": regions["The Eldergrove Forest"]["RegionID"], "DifficultyID": difficulties["Expert"]["DifficultyID"]},
+        {"QuestName": "Break the Moonlight Isles Curse", "RegionID": regions["The Moonlight Isles"]["RegionID"], "DifficultyID": difficulties["Master"]["DifficultyID"]},
+        {"QuestName": "Awaken the Fallen Star Dragon", "RegionID": regions["The Moonlight Isles"]["RegionID"], "DifficultyID": difficulties["Legendary"]["DifficultyID"]},
     ]
 
     for row in quest_rows:
