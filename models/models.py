@@ -62,18 +62,29 @@ CREATE TABLE IF NOT EXISTS Region (
            DifficultyName VARCHAR(50) NOT NULL UNIQUE
 );
 
+    CREATE TABLE IF NOT EXISTS Player (
+            PlayerID     INTEGER PRIMARY KEY AUTOINCREMENT,
+            Email        VARCHAR(255) NOT NULL UNIQUE,
+            DisplayName  VARCHAR(100) NOT NULL,
+            DateCreated  DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Core entities
 
 CREATE TABLE IF NOT EXISTS Character (
-            CharacterID        INTEGER PRIMARY KEY AUTOINCREMENT,
-            CharacterName VARCHAR(100) NOT NULL,
-            ClassID                 INTEGER NOT NULL,
-            SpeciesID             INTEGER NOT NULL,
-            AlignmentID        INTEGER NOT NULL,
-            Level                     INTEGER NOT NULL DEFAULT 1,
-            FOREIGN KEY (ClassID)               REFERENCES CharacterClass(ClassID),
-            FOREIGN KEY (SpeciesID)           REFERENCES Species(SpeciesID),
-            FOREIGN KEY (AlignmentID)      REFERENCES Alignment(AlignmentID)
+    CharacterID    INTEGER PRIMARY KEY AUTOINCREMENT,
+    PlayerID       INTEGER NOT NULL,
+    CharacterName  VARCHAR(100) NOT NULL,
+    CharacterType  VARCHAR(20) NOT NULL CHECK (CharacterType IN ('Player', 'Non-Player')),
+    ClassID        INTEGER NOT NULL,
+    SpeciesID      INTEGER NOT NULL,
+    AlignmentID    INTEGER NOT NULL,
+    Level          INTEGER NOT NULL DEFAULT 1,
+
+    FOREIGN KEY (PlayerID)    REFERENCES Player(PlayerID),
+    FOREIGN KEY (ClassID)     REFERENCES CharacterClass(ClassID),
+    FOREIGN KEY (SpeciesID)   REFERENCES Species(SpeciesID),
+    FOREIGN KEY (AlignmentID) REFERENCES Alignment(AlignmentID)
 );
 
 CREATE TABLE IF NOT EXISTS Item (

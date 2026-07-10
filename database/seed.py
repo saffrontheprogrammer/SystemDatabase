@@ -104,6 +104,24 @@ def seed_core_data(cursor):
     regions    = fetch_lookup_map(cursor, "Region",         "RegionName")
     difficulties = fetch_lookup_map(cursor, "Difficulty",   "DifficultyName")
 
+    # ── Players ───────────────────────────────────────────────────────────────
+    
+    player_rows = [
+        {"Email": "aria.vale@example.com", "DisplayName": "Aria Vale", "DateCreated": datetime(2026, 1, 1, 9, 0).isoformat(sep=" ")},
+        {"Email": "rowan.dusk@example.com", "DisplayName": "Rowan Dusk", "DateCreated": datetime(2026, 1, 2, 10, 15).isoformat(sep=" ")},
+        {"Email": "nyra.star@example.com", "DisplayName": "Nyra Star", "DateCreated": datetime(2026, 1, 3, 11, 30).isoformat(sep=" ")},
+        {"Email": "orin.flint@example.com", "DisplayName": "Orin Flint", "DateCreated": datetime(2026, 1, 4, 12, 45).isoformat(sep=" ")},
+    ]
+
+    for row in player_rows:
+        cursor.execute("""
+            INSERT INTO Player (Email, DisplayName, DateCreated)
+            VALUES (?, ?, ?)
+        """, (row["Email"], row["DisplayName"], row["DateCreated"]))
+
+    print("  ✔ Seeded Player")
+    player_map = fetch_lookup_map(cursor, "Player", "DisplayName")
+    
     # ── Characters ────────────────────────────────────────────────────────────
     character_rows = [
         {"CharacterName": "Thorin Ironblade",    "ClassID": classes["Warrior"]["ClassID"],  "SpeciesID": species["Dwarf"]["SpeciesID"],  "AlignmentID": alignments["Lawful Good"]["AlignmentID"],     "Level": 12},
