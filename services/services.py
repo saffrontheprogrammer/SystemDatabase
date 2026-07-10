@@ -32,12 +32,13 @@ class CharacterService:
 
     def get_form_data(self, character_id: int = None) -> CharacterFormViewModel:
         return CharacterFormViewModel(
+            players    = self._lookup.get_players(),
             classes    = self._lookup.get_classes(),
             species    = self._lookup.get_species(),
             alignments = self._lookup.get_alignments(),
             character  = self._repo.get_by_id(character_id) if character_id else None,
-        )
-
+    )
+    
     def create_character(self, form_data: dict) -> None:
         self._repo.create(form_data)
 
