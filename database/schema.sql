@@ -72,6 +72,11 @@ CREATE TABLE IF NOT EXISTS Item (
     ItemName   VARCHAR(100) NOT NULL,
     ItemTypeID INTEGER NOT NULL REFERENCES ItemType(ItemTypeID),
     RarityID   INTEGER NOT NULL REFERENCES Rarity(RarityID)
+
+    FOREIGN KEY (ItemTypeID) REFERENCES ItemType(ItemTypeID),
+    FOREIGN KEY (RarityID) REFERENCES Rarity(RarityID)
+
+
 );
 
 CREATE TABLE IF NOT EXISTS Quest (
@@ -79,6 +84,9 @@ CREATE TABLE IF NOT EXISTS Quest (
     QuestName    VARCHAR(100) NOT NULL,
     RegionID     INTEGER NOT NULL REFERENCES Region(RegionID),
     DifficultyID INTEGER NOT NULL REFERENCES Difficulty(DifficultyID)
+
+    FOREIGN KEY (RegionID) REFERENCES Region(RegionID),
+    FOREIGN KEY (DifficultyID) REFERENCES Difficulty(DifficultyID)
 );
 
 
@@ -89,6 +97,9 @@ CREATE TABLE IF NOT EXISTS Inventory (
     CharacterID INTEGER NOT NULL REFERENCES Character(CharacterID) ON DELETE CASCADE,
     ItemID      INTEGER NOT NULL REFERENCES Item(ItemID),
     Quantity    INTEGER NOT NULL DEFAULT 1
+
+    FOREIGN KEY (CharacterID) REFERENCES Character(CharacterID),
+    FOREIGN KEY (ItemID) REFERENCES Item(ItemID)
 );
 
 CREATE TABLE IF NOT EXISTS CharacterQuest (
@@ -96,4 +107,7 @@ CREATE TABLE IF NOT EXISTS CharacterQuest (
     CharacterID      INTEGER NOT NULL REFERENCES Character(CharacterID) ON DELETE CASCADE,
     QuestID          INTEGER NOT NULL REFERENCES Quest(QuestID),
     CompletionDate   DATETIME NULL
+
+    FOREIGN KEY (CharacterID) REFERENCES Character(CharacterID),
+    FOREIGN KEY (QuestID) REFERENCES Quest(QuestID)
 );
