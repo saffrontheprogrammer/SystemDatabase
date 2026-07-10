@@ -4,6 +4,7 @@
 PRAGMA foreign_keys = ON;
 
 -- ── Lookup tables ─────────────────────────────────────────────────────────────
+
 CREATE TABLE IF NOT EXISTS CharacterClass (
     ClassID     INTEGER PRIMARY KEY AUTOINCREMENT,
     ClassName   VARCHAR(50) NOT NULL UNIQUE,
@@ -12,7 +13,7 @@ CREATE TABLE IF NOT EXISTS CharacterClass (
 
 CREATE TABLE IF NOT EXISTS Species (
     SpeciesID   INTEGER PRIMARY KEY AUTOINCREMENT,
-    SpeciesName VARCHAR(50) NOT NUL UNIQUE
+    SpeciesName VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Alignment (
@@ -22,7 +23,7 @@ CREATE TABLE IF NOT EXISTS Alignment (
 
 CREATE TABLE IF NOT EXISTS ItemType (
     ItemTypeID INTEGER PRIMARY KEY AUTOINCREMENT,
-    TypeName
+    TypeName VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS Rarity (
@@ -36,19 +37,34 @@ CREATE TABLE IF NOT EXISTS Region (
 );
 
 CREATE TABLE IF NOT EXISTS Difficulty (
-    DifficultyID INTEGER PRIMARY key AUTOINCREMENT,
-    
-)
+    DifficultyID INTEGER PRIMARY KEY AUTOINCREMENT,
+    DifficultyName VARCHAR(50) NOT NULL UNIQUE
+);
+
 
 -- ── Core entities ─────────────────────────────────────────────────────────────
 
+CREATE TABLE IF NOT EXISTS Player (
+    PlayerID    INTEGER PRIMARY KEY AUTOINCREMENT,
+    Email       VARCHAR(255) NOT NULL UNIQUE,
+    DisplayName VARCHAR(100) NOT NULL,
+    DateCreated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
 CREATE TABLE IF NOT EXISTS Character (
     CharacterID   INTEGER PRIMARY KEY AUTOINCREMENT,
+    PlayerID      INTEGER NOT NULL,
     CharacterName VARCHAR(100) NOT NULL,
-    ClassID       INTEGER NOT NULL REFERENCES CharacterClass(ClassID),
-    SpeciesID     INTEGER NOT NULL REFERENCES Species(SpeciesID),
-    AlignmentID   INTEGER NOT NULL REFERENCES Alignment(AlignmentID),
-    Level         INTEGER NOT NULL DEFAULT 1
+    CharacterType VARCHAR(20) NOT NULL CHECK (CharacterType IN ('Player', 'Non-Player')),
+    ClassID       INTEGER NOT NULL,
+    SpeciesID     INTEGER NOT NULL,
+    AlignmentID   INTEGER NOT NULL,
+    Level         INTEGER NOT NULL DEFAULT 1,
+
+    FOREIGN KEY (PlayerID) REFERENCES Player(PlayerID),
+    FOREIGN KEY (ClassID) REFERENCES CharacterClass(ClassID),
+    FOREIGN KEY (SpeciesID) REFERENCES Species(SpeciesID),
+    FOREIGN KEY (AlignmentID) REFERENCES Alignment(AlignmentID)
 );
 
 CREATE TABLE IF NOT EXISTS Item (
