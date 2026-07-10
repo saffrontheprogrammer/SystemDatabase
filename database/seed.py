@@ -38,12 +38,13 @@ LOOKUP_SEED_DATA = {
         {"TypeName": "Food"},
         {"TypeName": "Armour"},
         {"TypeName": "Collectables"},
+        {"TypeName": "Equipment"},
 
 
     ],
     "Rarity": [
         {"RarityName": "Common"},
-        {"RarityName": "Harder to find"},
+        {"RarityName": "Harder-to-find"},
         {"RarityName": "Rare"},
     ],
     "Region": [
@@ -149,14 +150,22 @@ def seed_core_data(cursor):
         {"ItemName": "Boots",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Rare"]["RarityID"]},
         {"ItemName": "Shield",          "ItemTypeID": item_types["Armour"]["ItemTypeID"],  "RarityID": rarities["Common"]["RarityID"]},
 
-        item_rows = [
         {"ItemName": "Ancient Coin", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Common"]["RarityID"]},
         {"ItemName": "Crystal Feather", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Rare"]["RarityID"]},
         {"ItemName": "Dragon Scale", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Harder-to-find"]["RarityID"]},
         {"ItemName": "Moonlit Gem", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Rare"]["RarityID"]},
         {"ItemName": "Forgotten Rune", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Harder-to-find"]["RarityID"]},
         {"ItemName": "Cursed Key", "ItemTypeID": item_types["Collectables"]["ItemTypeID"], "RarityID": rarities["Common"]["RarityID"]},
+
+        {"ItemName": "Explorer's Lantern", "ItemTypeID": item_types["Equipment"]["ItemTypeID"], "RarityID": rarities["Common"]["RarityID"]},
+        {"ItemName": "Rope of Climbing", "ItemTypeID": item_types["Equipment"]["ItemTypeID"], "RarityID": rarities["Common"]["RarityID"]},
+        {"ItemName": "Enchanted Compass", "ItemTypeID": item_types["Equipment"]["ItemTypeID"], "RarityID": rarities["Rare"]["RarityID"]},
+        {"ItemName": "Shadow Cloak", "ItemTypeID": item_types["Equipment"]["ItemTypeID"], "RarityID": rarities["Harder-to-find"]["RarityID"]},
+        {"ItemName": "Healing Satchel", "ItemTypeID": item_types["Equipment"]["ItemTypeID"], "RarityID": rarities["Rare"]["RarityID"]},
+        {"ItemName": "Traveller's Map", "ItemTypeID": item_types["Equipment"]["ItemTypeID"], "RarityID": rarities["Harder-to-find"]["RarityID"]},
+
         ]
+
 
     for row in item_rows:
         cursor.execute("""
