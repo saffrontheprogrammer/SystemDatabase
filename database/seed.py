@@ -228,9 +228,38 @@ def seed_core_data(cursor):
     quest_map = fetch_lookup_map(cursor, "Quest", "QuestName")
 
     # ── Inventory ─────────────────────────────────────────────────────────────
+    
     inventory_rows = [
-        {"CharacterID": character_map["Thorin Ironblade"]["CharacterID"],    "ItemID": item_map["Iron Sword"]["ItemID"],           "Quantity": 1},
-    ]
+    # Thorin has several items
+    {"CharacterID": character_map["Thorin Ironblade"]["CharacterID"], "ItemID": item_map["Iron Sword"]["ItemID"], "Quantity": 1},
+    {"CharacterID": character_map["Thorin Ironblade"]["CharacterID"], "ItemID": item_map["Shield"]["ItemID"], "Quantity": 1},
+    {"CharacterID": character_map["Thorin Ironblade"]["CharacterID"], "ItemID": item_map["Bread"]["ItemID"], "Quantity": 3},
+
+    # Mira has several rogue-style items
+    {"CharacterID": character_map["Mira Ashvale"]["CharacterID"], "ItemID": item_map["Nunchucks"]["ItemID"], "Quantity": 1},
+    {"CharacterID": character_map["Mira Ashvale"]["CharacterID"], "ItemID": item_map["Shadow Cloak"]["ItemID"], "Quantity": 1},
+    {"CharacterID": character_map["Mira Ashvale"]["CharacterID"], "ItemID": item_map["Traveller's Map"]["ItemID"], "Quantity": 1},
+
+    # Kaelen has survival/combat items
+    {"CharacterID": character_map["Kaelen Stormhart"]["CharacterID"], "ItemID": item_map["Axe"]["ItemID"], "Quantity": 1},
+    {"CharacterID": character_map["Kaelen Stormhart"]["CharacterID"], "ItemID": item_map["Healing Satchel"]["ItemID"], "Quantity": 2},
+    {"CharacterID": character_map["Kaelen Stormhart"]["CharacterID"], "ItemID": item_map["Rice"]["ItemID"], "Quantity": 4},
+
+    # Loretta has magical/collectable items
+    {"CharacterID": character_map["Loretta Fusion"]["CharacterID"], "ItemID": item_map["Crystal Feather"]["ItemID"], "Quantity": 1},
+    {"CharacterID": character_map["Loretta Fusion"]["CharacterID"], "ItemID": item_map["Moonlit Gem"]["ItemID"], "Quantity": 1},
+    {"CharacterID": character_map["Loretta Fusion"]["CharacterID"], "ItemID": item_map["Enchanted Compass"]["ItemID"], "Quantity": 1},
+
+    # Same item appearing in more than one character's inventory
+    {"CharacterID": character_map["Dorian Blackthorn"]["CharacterID"], "ItemID": item_map["Iron Sword"]["ItemID"], "Quantity": 1},
+    {"CharacterID": character_map["Finn Quickstep"]["CharacterID"], "ItemID": item_map["Bread"]["ItemID"], "Quantity": 2},
+    {"CharacterID": character_map["Cedric Oakshield"]["CharacterID"], "ItemID": item_map["Healing Satchel"]["ItemID"], "Quantity": 1},
+
+    # Extra NPC/character inventory evidence
+    {"CharacterID": character_map["Garrick Stonefist"]["CharacterID"], "ItemID": item_map["Dragon Scale"]["ItemID"], "Quantity": 1},
+    {"CharacterID": character_map["Brakka Doomfang"]["CharacterID"], "ItemID": item_map["Warhammer"]["ItemID"], "Quantity": 1},
+    {"CharacterID": character_map["Elara Moonwhisper"]["CharacterID"], "ItemID": item_map["Forgotten Rune"]["ItemID"], "Quantity": 1},
+]
 
     for row in inventory_rows:
         cursor.execute("""
@@ -241,9 +270,34 @@ def seed_core_data(cursor):
     print("  ✔ Seeded Inventory")
 
     # ── CharacterQuest ────────────────────────────────────────────────────────
+    
     character_quest_rows = [
-        {"CharacterID": character_map["Thorin Ironblade"]["CharacterID"],    "QuestID": quest_map["Defend the Vale"]["QuestID"],       "CompletionDate": datetime(2026, 1, 12, 14, 30).isoformat(sep=" ")},
-    ]
+    # Several characters assigned to Defend the Vale
+    {"CharacterID": character_map["Thorin Ironblade"]["CharacterID"], "QuestID": quest_map["Defend the Vale"]["QuestID"], "CompletionDate": datetime(2026, 1, 12, 14, 30).isoformat(sep=" ")},
+    {"CharacterID": character_map["Mira Ashvale"]["CharacterID"], "QuestID": quest_map["Defend the Vale"]["QuestID"], "CompletionDate": datetime(2026, 1, 13, 10, 15).isoformat(sep=" ")},
+    {"CharacterID": character_map["Cedric Oakshield"]["CharacterID"], "QuestID": quest_map["Defend the Vale"]["QuestID"], "CompletionDate": None},
+
+    # Novice quests
+    {"CharacterID": character_map["Finn Quickstep"]["CharacterID"], "QuestID": quest_map["Gather Vale Herbs"]["QuestID"], "CompletionDate": datetime(2026, 1, 5, 9, 45).isoformat(sep=" ")},
+    {"CharacterID": character_map["Loretta Fusion"]["CharacterID"], "QuestID": quest_map["Find the Lost Sand Compass"]["QuestID"], "CompletionDate": datetime(2026, 1, 6, 11, 20).isoformat(sep=" ")},
+
+    # Apprentice quests
+    {"CharacterID": character_map["Mira Ashvale"]["CharacterID"], "QuestID": quest_map["Clear the Eldergrove Path"]["QuestID"], "CompletionDate": datetime(2026, 1, 8, 16, 10).isoformat(sep=" ")},
+    {"CharacterID": character_map["Kaelen Stormhart"]["CharacterID"], "QuestID": quest_map["Escort the Desert Caravan"]["QuestID"], "CompletionDate": None},
+
+    # Journeyman quests
+    {"CharacterID": character_map["Kaelen Stormhart"]["CharacterID"], "QuestID": quest_map["Climb the Frozen Watchtower"]["QuestID"], "CompletionDate": datetime(2026, 1, 15, 13, 0).isoformat(sep=" ")},
+    {"CharacterID": character_map["Dorian Blackthorn"]["CharacterID"], "QuestID": quest_map["Climb the Frozen Watchtower"]["QuestID"], "CompletionDate": None},
+
+    # Expert quests
+    {"CharacterID": character_map["Brakka Doomfang"]["CharacterID"], "QuestID": quest_map["Hunt the Ashen Wyrm"]["QuestID"], "CompletionDate": datetime(2026, 1, 18, 18, 45).isoformat(sep=" ")},
+    {"CharacterID": character_map["Elara Moonwhisper"]["CharacterID"], "QuestID": quest_map["Seal the Eldergrove Root Rift"]["QuestID"], "CompletionDate": datetime(2026, 1, 20, 12, 30).isoformat(sep=" ")},
+
+    # Master and Legendary quests
+    {"CharacterID": character_map["Elara Moonwhisper"]["CharacterID"], "QuestID": quest_map["Break the Moonlight Isles Curse"]["QuestID"], "CompletionDate": None},
+    {"CharacterID": character_map["Thorin Ironblade"]["CharacterID"], "QuestID": quest_map["Break the Moonlight Isles Curse"]["QuestID"], "CompletionDate": None},
+    {"CharacterID": character_map["Dorian Blackthorn"]["CharacterID"], "QuestID": quest_map["Awaken the Fallen Star Dragon"]["QuestID"], "CompletionDate": None},
+]
 
     for row in character_quest_rows:
         cursor.execute("""
