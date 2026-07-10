@@ -123,24 +123,34 @@ def seed_core_data(cursor):
     player_map = fetch_lookup_map(cursor, "Player", "DisplayName")
     
     # ── Characters ────────────────────────────────────────────────────────────
+        
     character_rows = [
-        {"CharacterName": "Thorin Ironblade",    "ClassID": classes["Warrior"]["ClassID"],  "SpeciesID": species["Dwarf"]["SpeciesID"],  "AlignmentID": alignments["Lawful Good"]["AlignmentID"],     "Level": 12},
-        {"CharacterName": "Loretta Fusion",    "ClassID": classes["Sorcerer"]["ClassID"],  "SpeciesID": species["Human"]["SpeciesID"],  "AlignmentID": alignments["Destructively Evil"]["AlignmentID"],     "Level": 1},
-        {"CharacterName": "Kaelen Stormhart",    "ClassID": classes["Barbarian"]["ClassID"],  "SpeciesID": species["Hybrid"]["SpeciesID"],  "AlignmentID": alignments["Lawful Good"]["AlignmentID"],     "Level": 7},
-        {"CharacterName": "Mira Ashvale",    "ClassID": classes["Rogue"]["ClassID"],  "SpeciesID": species["Fairy"]["SpeciesID"],  "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"],     "Level": 4},
-        {"CharacterName": "Garrick Stonefist",    "ClassID": classes["Mage"]["ClassID"],  "SpeciesID": species["Zombie"]["SpeciesID"],  "AlignmentID": alignments["Destructively Evil"]["AlignmentID"],     "Level": 5},
-        {"CharacterName": "Dorian Blackthorn",    "ClassID": classes["Warrior"]["ClassID"],  "SpeciesID": species["Human"]["SpeciesID"],  "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"],     "Level": 20},
-        {"CharacterName": "Elara Moonwhisper",    "ClassID": classes["Sorcerer"]["ClassID"],  "SpeciesID": species["Fairy"]["SpeciesID"],  "AlignmentID": alignments["Lawful Good"]["AlignmentID"],     "Level": 9},
-        {"CharacterName": "Brakka Doomfang",    "ClassID": classes["Barbarian"]["ClassID"],  "SpeciesID": species["Zombie"]["SpeciesID"],  "AlignmentID": alignments["Destructively Evil"]["AlignmentID"],     "Level": 14},
-        {"CharacterName": "Finn Quickstep",    "ClassID": classes["Rogue"]["ClassID"],  "SpeciesID": species["Hybrid"]["SpeciesID"],  "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"],     "Level": 6},
-        {"CharacterName": "Cedric Oakshield",    "ClassID": classes["Mage"]["ClassID"],  "SpeciesID": species["Dwarf"]["SpeciesID"],  "AlignmentID": alignments["Lawful Good"]["AlignmentID"],     "Level": 11},
-       ]
+
+    {"PlayerID": player_map["Aria Vale"]["PlayerID"], "CharacterName": "Thorin Ironblade", "CharacterType": "Player", "ClassID": classes["Warrior"]["ClassID"], "SpeciesID": species["Dwarf"]["SpeciesID"], "AlignmentID": alignments["Lawful Good"]["AlignmentID"], "Level": 12},
+    {"PlayerID": player_map["Rowan Dusk"]["PlayerID"], "CharacterName": "Loretta Fusion", "CharacterType": "Player", "ClassID": classes["Sorcerer"]["ClassID"], "SpeciesID": species["Human"]["SpeciesID"], "AlignmentID": alignments["Destructively Evil"]["AlignmentID"], "Level": 1},
+    {"PlayerID": player_map["Nyra Star"]["PlayerID"], "CharacterName": "Kaelen Stormhart", "CharacterType": "Player", "ClassID": classes["Barbarian"]["ClassID"], "SpeciesID": species["Hybrid"]["SpeciesID"], "AlignmentID": alignments["Lawful Good"]["AlignmentID"], "Level": 7},
+    {"PlayerID": player_map["Orin Flint"]["PlayerID"], "CharacterName": "Mira Ashvale", "CharacterType": "Player", "ClassID": classes["Rogue"]["ClassID"], "SpeciesID": species["Fairy"]["SpeciesID"], "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"], "Level": 4},
+    {"PlayerID": player_map["Aria Vale"]["PlayerID"], "CharacterName": "Garrick Stonefist", "CharacterType": "Non-Player", "ClassID": classes["Mage"]["ClassID"], "SpeciesID": species["Zombie"]["SpeciesID"], "AlignmentID": alignments["Destructively Evil"]["AlignmentID"], "Level": 5},
+    {"PlayerID": player_map["Rowan Dusk"]["PlayerID"], "CharacterName": "Dorian Blackthorn", "CharacterType": "Non-Player", "ClassID": classes["Warrior"]["ClassID"], "SpeciesID": species["Human"]["SpeciesID"], "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"], "Level": 20},
+    {"PlayerID": player_map["Nyra Star"]["PlayerID"], "CharacterName": "Elara Moonwhisper", "CharacterType": "Player", "ClassID": classes["Sorcerer"]["ClassID"], "SpeciesID": species["Fairy"]["SpeciesID"], "AlignmentID": alignments["Lawful Good"]["AlignmentID"], "Level": 9},
+    {"PlayerID": player_map["Orin Flint"]["PlayerID"], "CharacterName": "Brakka Doomfang", "CharacterType": "Non-Player", "ClassID": classes["Barbarian"]["ClassID"], "SpeciesID": species["Zombie"]["SpeciesID"], "AlignmentID": alignments["Destructively Evil"]["AlignmentID"], "Level": 14},
+    {"PlayerID": player_map["Aria Vale"]["PlayerID"], "CharacterName": "Finn Quickstep", "CharacterType": "Player", "ClassID": classes["Rogue"]["ClassID"], "SpeciesID": species["Hybrid"]["SpeciesID"], "AlignmentID": alignments["Moderately Unfair"]["AlignmentID"], "Level": 6},
+    {"PlayerID": player_map["Rowan Dusk"]["PlayerID"], "CharacterName": "Cedric Oakshield", "CharacterType": "Non-Player", "ClassID": classes["Mage"]["ClassID"], "SpeciesID": species["Dwarf"]["SpeciesID"], "AlignmentID": alignments["Lawful Good"]["AlignmentID"], "Level": 11},
+]
 
     for row in character_rows:
         cursor.execute("""
-            INSERT INTO Character (CharacterName, ClassID, SpeciesID, AlignmentID, Level)
-            VALUES (?, ?, ?, ?, ?)
-        """, (row["CharacterName"], row["ClassID"], row["SpeciesID"], row["AlignmentID"], row["Level"]))
+            INSERT INTO Character (PlayerID, CharacterName, CharacterType, ClassID, SpeciesID, AlignmentID, Level)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        """, (
+            row["PlayerID"],
+            row["CharacterName"],
+            row["CharacterType"],
+            row["ClassID"],
+            row["SpeciesID"],
+            row["AlignmentID"],
+            row["Level"]
+        ))
 
     print("  ✔ Seeded Character")
     character_map = fetch_lookup_map(cursor, "Character", "CharacterName")
